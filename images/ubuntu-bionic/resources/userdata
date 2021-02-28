@@ -1,0 +1,5 @@
+#cloud-config
+system_info:
+  default_user:
+    name: asp
+    uid: '1000'

@@ -1,0 +1,9 @@
+---
+- name: AMI Generation Playbook
+  hosts: 'all'
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Add asp group
+      group:
+        name: asp

@@ -1,0 +1,47 @@
+{
+  "variables": {
+    "packer_ami_generation_git_branch": "{{env `PACKER_AMI_GENERATION_GIT_BRANCH`}}"
+  },
+
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "eu-west-2",
+    "vpc_id": "vpc-9130b0f8",
+    "subnet_id": "subnet-3ff83656",
+    "source_ami": "ami-068a81fe63a7fcdc7",
+    "instance_type": "t3.micro",
+    "iam_instance_profile": "ami-generation-role",
+    "ssh_username": "asp",
+    "ami_name": "aspevik-ubuntu-bionic-branch-{{user `packer_ami_generation_git_branch`}}-{{timestamp}}",
+    "user_data_file": "images/ubuntu-bionic/resources/userdata",
+    "launch_block_device_mappings": [
+      {
+        "device_name": "/dev/sdb",
+        "delete_on_termination": true,
+        "encrypted": true,
+        "volume_type": "gp2",
+        "volume_size": "5"
+      }
+    ],
+    "tags": {
+      "source_ami": "{{ .SourceAMI }}",
+      "build_timestamp": "{{isotime \"15:04:05 02-01-2006\"}}"
+    }
+  }],
+
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible/playbooks/ami.yml",
+      "ansible_env_vars": [ "ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o AddKeysToAgent=no'" ],
+      "extra_arguments": [
+        "-vv",
+        "-e ansible_python_interpreter=/usr/bin/python3",
+        "--ssh-extra-args",
+        "-o IdentitiesOnly=yes"
+      ],
+      "host_alias": "packer-ansible-ami-generation-instance",
+      "user": "asp"
+    }
+  ]
+}
