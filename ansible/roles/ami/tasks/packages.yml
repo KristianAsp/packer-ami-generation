@@ -1,0 +1,31 @@
+---
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Install required system packages
+    apt:
+      name: "{{ apt_packages }}"
+      state: latest
+      update_cache: yes
+      install_recommends: no
+    tags: [ packages ]
+
+  - name: Install required Python (pip) packages
+    pip:
+      name: "{{ pip_packages }}"
+    tags: [ packages ]
+
+  - name: Ensure users are part of necessary package groups
+    user:
+      name: "{{ item.name }}"
+      groups: "{{ (item.groups + item.package_groups) | join(',') }}"
+      append: no
+    with_items: "{{ users }}"
+    tags: [ packages, users ]

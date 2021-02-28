@@ -1,0 +1,26 @@
+apt_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - python3-pip
+  - python3-setuptools
+  - docker-ce
+  - docker-ce-cli
+
+pip_packages:
+  - awscli==1.16.36
+  - boto3==1.9.26
+  - docker==3.5.0
+  - docker-compose==1.23.1
+  - ansible==2.7.0
+
+users:
+  - name: asp
+    uid: 1000
+    home: "/home/asp"
+    groups: []
+    package_groups:
+      - docker
+    shell: "/bin/bash"
+    sudo: yes

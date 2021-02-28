@@ -1,0 +1,12 @@
+---
+  - name: Ensure users exist
+    user:
+      state: present
+      name: "{{ item.name }}"
+      uid: "{{ item.uid }}"
+      home: "{{ item.home }}"
+      groups: "{{ item.groups | join(',') }}"
+      shell: "{{ item.shell }}"
+      append: no
+    loop: "{{ users | flatten(levels=1) }}"
+    tags: [ users ]
