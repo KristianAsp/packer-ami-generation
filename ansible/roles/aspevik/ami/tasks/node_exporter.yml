@@ -1,0 +1,9 @@
+---
+- name: Install node-exporter
+  include_role:
+    name: ../roles/galaxy/undergreen.prometheus-node-exporter
+  vars:
+    prometheus_node_exporter_version: "{{ node_exporter.version }}"
+    prometheus_node_exporter_url: "{{ node_exporter.url }}"
+    prometheus_node_exporter_config_flags: "{{ node_exporter.config_flags }}"
+  tags: [ node-exporter ]

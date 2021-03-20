@@ -24,3 +24,10 @@ users:
       - docker
     shell: "/bin/bash"
     sudo: yes
+
+node_exporter:
+  version: "1.1.1"
+  url: "https://github.com/prometheus/node_exporter/releases/download/v1.1.1/node_exporter-1.1.1.linux-amd64.tar.gz"
+  config_flags:
+    'web.listen-address': '0.0.0.0:10000'
+    'log.level': 'info'

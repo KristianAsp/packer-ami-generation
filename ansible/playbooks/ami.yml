@@ -1,7 +1,8 @@
 ---
 - name: AMI Generation Playbook
   hosts: 'all'
+  user: asp
   become: yes
   become_method: sudo
   roles:
-    - ../roles/ami
+    - ../roles/aspevik/ami

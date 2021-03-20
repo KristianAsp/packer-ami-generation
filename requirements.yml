@@ -1,0 +1,2 @@
+- src: undergreen.prometheus-node-exporter
+  version: v1.4.0
