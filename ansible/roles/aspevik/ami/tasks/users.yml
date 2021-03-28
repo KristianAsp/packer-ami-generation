@@ -10,3 +10,11 @@
       append: no
     loop: "{{ users | flatten(levels=1) }}"
     tags: [ users ]
+
+  - name: Set authorized_keys file with value from AWS Secrets Manager
+    authorized_key:
+      user: "{{ default_user.name }}"
+      state: present
+      exclusive: yes
+      key: "{{ lookup('amazon.aws.aws_secret', '/ansible/authorized_keys', on_denied='warn')}}"
+    tags: [ users, ssh ]

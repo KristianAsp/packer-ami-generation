@@ -15,15 +15,19 @@ pip_packages:
   - docker-compose==1.23.1
   - ansible==2.7.0
 
+default_user: &default_user
+  name: asp
+  uid: 1000
+  home: "/home/asp"
+  groups: []
+  package_groups:
+    - docker
+  shell: "/bin/bash"
+  sudo: yes
+
 users:
-  - name: asp
-    uid: 1000
-    home: "/home/asp"
-    groups: []
-    package_groups:
-      - docker
-    shell: "/bin/bash"
-    sudo: yes
+  - *default_user
+
 
 node_exporter:
   version: "1.1.1"
