@@ -7,7 +7,7 @@ apt_packages:
   - python3-setuptools
   - docker-ce
   - docker-ce-cli
-
+  - jq
 pip_packages:
   - awscli==1.19.39
   - boto3==1.17.39
