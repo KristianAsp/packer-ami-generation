@@ -1,0 +1,11 @@
+---
+- name: Override default cloud-init configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: 'templates/var/lib/cloud/scripts/per-instance/001-run-ansible-script.sh.j2', dest: '/var/lib/cloud/scripts/per-instance/001-run-ansible-script.sh', mode: '0700' }
+  tags: [ cloud-init ]

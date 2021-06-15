@@ -35,3 +35,7 @@ node_exporter:
   config_flags:
     'web.listen-address': '0.0.0.0:10000'
     'log.level': 'info'
+
+bootstrap:
+  ansible_dir: "/home/asp/ansible/"
+  ansible_script_path: "/home/asp/ansible/ansible.sh"

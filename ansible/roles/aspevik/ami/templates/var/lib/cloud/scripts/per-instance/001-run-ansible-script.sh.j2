@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ANSIBLE_COMMAND="{{ bootstrap.ansible_script_path }}"
+USER=asp
+
+# Define any particular args specific to the cloud init run
+CLOUD_INIT_ANSIBLE_ARGS="--tags=all,cloud-init -vv"
+
+# Run ansible command as $USER
+su - $USER -c "ANSIBLE_CMD_EXTRA_ARG='${CLOUD_INIT_ANSIBLE_ARGS}' $ANSIBLE_COMMAND"
