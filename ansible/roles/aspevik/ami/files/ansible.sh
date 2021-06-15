@@ -14,16 +14,22 @@ function log() {
 
 if [ ! -d "/home/asp/.ssh" ]; then
   mkdir /home/asp/.ssh
+fi
+
+if [ ! -f "/home/asp/.ssh/id_rsa" ]; then
   # Set up private and public SSH key in order to pull repository
   aws --region "${AWS_REGION}" secretsmanager get-secret-value \
                                           --secret-id /valheim/github-read-private-ssh-key \
                                           --query 'SecretString' --output text > ~/.ssh/id_rsa
+fi
+if [ ! -f "/home/asp/.ssh/id_rsa.pub" ]; then
   aws --region "${AWS_REGION}" secretsmanager get-secret-value \
                                           --secret-id /valheim/github-read-public-ssh-key \
                                           --query 'SecretString' --output text > ~/.ssh/id_rsa.pub
 
-  chmod 400 ~/.ssh/*
 fi
+
+chmod 400 ~/.ssh/*
 
 # Pull tags to determine branch of Ansible.
 #INSTANCE_TAGS=$(aws --region ${AWS_REGION} ec2 describe-instances --instance-ids ${INSTANCE_ID} | jq ".Reservations[0].Instances[0].Tags")
