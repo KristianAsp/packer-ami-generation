@@ -8,12 +8,12 @@
     "region": "eu-west-2",
     "vpc_id": "vpc-9130b0f8",
     "subnet_id": "subnet-3ff83656",
-    "source_ami": "ami-068a81fe63a7fcdc7",
+    "source_ami": "ami-074ec84f0fb05ba14",
     "instance_type": "t3.micro",
     "iam_instance_profile": "ami-generation-role",
     "ssh_username": "asp",
-    "ami_name": "aspevik-ubuntu-bionic-branch-{{user `packer_ami_generation_git_branch`}}-{{timestamp}}",
-    "user_data_file": "images/ubuntu-bionic/resources/userdata",
+    "ami_name": "aspevik-focal-fosse-branch-{{user `packer_ami_generation_git_branch`}}-{{timestamp}}",
+    "user_data_file": "images/focal-fossa/resources/userdata",
     "launch_block_device_mappings": [
       {
         "device_name": "/dev/sdb",
