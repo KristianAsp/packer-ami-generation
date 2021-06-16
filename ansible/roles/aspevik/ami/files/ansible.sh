@@ -63,5 +63,5 @@ ansible-playbook \
     --limit $INSTANCE_IP \
     playbooks/main.yml \
     $ANSIBLE_CMD_EXTRA_ARGS \
-    -e ansible_python_interpreter=/usr/local/bin
+    -e ansible_python_interpreter=/usr/bin/python3
 
