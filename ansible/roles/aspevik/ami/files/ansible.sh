@@ -31,6 +31,18 @@ fi
 
 chmod 400 ~/.ssh/*
 
+# Ensure that we can pull from GitHub. 
+echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
+
+
+# poll until instance tags are available as dynamic inventory relies on these tags
+while [ -z $(aws --region "${AWS_REGION}" ec2 describe-tags --filters "Name=resource-id,Values=$INSTANCE_ID" "Name=key,Values=asp:env:type" | jq -r .Tags[].Value) ]
+do
+    log "Waiting for instance tags"
+    sleep 1
+done
+
 # Pull tags to determine branch of Ansible.
 #INSTANCE_TAGS=$(aws --region ${AWS_REGION} ec2 describe-instances --instance-ids ${INSTANCE_ID} | jq ".Reservations[0].Instances[0].Tags")
 BASE_DIR=$(dirname "$(realpath -s $0)")
