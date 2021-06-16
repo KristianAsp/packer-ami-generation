@@ -13,7 +13,7 @@ pip_packages:
   - boto3==1.17.39
   - docker==3.5.0
   - docker-compose==1.28.6
-  - ansible==2.10.0
+  - ansible==4.0.0
 
 default_user: &default_user
   name: asp
@@ -35,3 +35,7 @@ node_exporter:
   config_flags:
     'web.listen-address': '0.0.0.0:10000'
     'log.level': 'info'
+
+bootstrap:
+  ansible_dir: "/home/asp/ansible/"
+  ansible_script_path: "/home/asp/ansible/ansible.sh"

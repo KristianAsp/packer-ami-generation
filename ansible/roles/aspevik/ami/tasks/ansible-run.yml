@@ -1,0 +1,18 @@
+---
+
+- name: ansible-run - create ansible dir
+  file:
+    path: "{{ bootstrap.ansible_dir }}"
+    state: directory
+    owner: asp
+    group: asp
+  tags: [ ansible-run ]
+
+- name: ansible-run - copy run script
+  copy:
+    src: files/ansible.sh
+    dest: "{{ bootstrap.ansible_script_path }}"
+    owner: asp
+    group: asp
+    mode: 0744
+  tags: [ ansible-run ]
