@@ -4,3 +4,4 @@
   - import_tasks: node_exporter.yml
   - import_tasks: cloud-init.yml
   - import_tasks: ansible-run.yml
+  - import_tasks: docker-config.yml
